@@ -10,6 +10,6 @@ application:
 
 database:
 	# SQLite database source location
-	dsn: 'sqlite:%rootDir%/data/db.sqlite'
-	user:
-	password:
+	dsn: 'mysql:host=127.0.0.1;dbname=usertest'
+	user: 'root'
+	password: 'root'
