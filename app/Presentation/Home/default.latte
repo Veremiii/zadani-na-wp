@@ -1,0 +1,15 @@
+{block content}
+	<h1>Příspěvky</h1>
+
+	<div n:foreach="$posts as $post" class="post">
+		<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
+		<div>{$post->content|truncate:100}</div>
+	</div>
+
+	<hr>
+	{if $user->isLoggedIn()}
+		<p>Přihlášen jako: {$user->getIdentity()->email} (<a n:href="Sign:out">Odhlásit</a>)</p>
+	{else}
+		<a n:href="Sign:in">Přihlásit se</a>
+	{/if}
+{/block}
