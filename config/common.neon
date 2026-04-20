@@ -4,8 +4,10 @@ parameters:
 
 
 application:
-	# Presenter mapping pattern
-	mapping: App\Presentation\*\**Presenter
+    # Presenter mapping pattern
+    mapping:
+        - 'App\\Presentation\\**Presenter'
+        - 'App\\Modules\\*\\Presenters\\*Presenter'
 
 
 database:

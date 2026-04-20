@@ -17,9 +17,14 @@ final class RouterFactory
 	 */
 	public static function createRouter(): RouteList
 	{
+
+
 		$router = new RouteList;
-		// Default route that maps to the Dashboard
-		$router->addRoute('<presenter>/<action>', 'Dashboard:default');
+
+		$router->addRoute('', ['presenter' => 'Admin:Home', 'action' => 'default']);
+		$router->addRoute('post/<postId>', ['presenter' => 'Admin:Post', 'action' => 'show']);
+		$router->addRoute('<presenter>/<action>', ['presenter' => 'Dashboard', 'action' => 'default']);
+
 		return $router;
 	}
 }

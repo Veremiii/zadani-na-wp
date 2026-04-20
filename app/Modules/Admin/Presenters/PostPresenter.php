@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Module\Admin\Presenters;
+namespace App\Modules\Admin\Presenters;
 
 use App\Model\PostFacade;
 use Nette;
@@ -15,7 +15,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 	{
 		$post = $this->facade->getPostById($postId);
 		if (!$post) {
-			$this->error('Příspěvek nebyl nalezen');
+			$this->error('Příspěvek nenalezen');
 		}
 		$this->template->post = $post;
 	}

@@ -1,0 +1,19 @@
+{block content}
+<h1>Příspěvky</h1>
+
+<div n:foreach="$posts as $post">
+    <h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
+    <p>{$post->content|truncate:100}</p>
+</div>
+
+<hr>
+
+{if $user->isLoggedIn()}
+    <p>Jste přihlášen. (<a n:href="Sign:out">Sign out</a>)</p>
+    
+    {if $user->isInRole('admin')}
+        <p><strong>Jsi role Admin</strong> - máš právo upravovat.</p>
+    {/if}
+{else}
+    <p><a n:href="Sign:in">Sign in</a></p>
+{/if}

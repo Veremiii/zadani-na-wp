@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Module\Admin\Presenters; // Pozor na tento namespace podle zadání!
+declare(strict_types=1);
+
+namespace App\Presentation\Admin;
 
 use App\Model\PostFacade;
 use Nette;
@@ -13,7 +15,6 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 
 	public function renderDefault(): void
 	{
-		// Výpis příspěvků
 		$this->template->posts = $this->facade->getPublicArticles()->limit(10);
 	}
 }
