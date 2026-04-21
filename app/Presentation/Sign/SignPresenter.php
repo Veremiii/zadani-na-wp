@@ -54,7 +54,7 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 				// Attempt to login user
 				$this->getUser()->login($data->username, $data->password);
 				$this->restoreRequest($this->backlink);
-				$this->redirect('Dashboard:');
+				$this->redirect('Home:');
 			} catch (Nette\Security\AuthenticationException) {
 				$form->addError('The username or password you entered is incorrect.');
 			}

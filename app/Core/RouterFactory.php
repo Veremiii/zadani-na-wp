@@ -10,21 +10,21 @@ use Nette\Application\Routers\RouteList;
 
 final class RouterFactory
 {
-	use Nette\StaticClass;
+    use Nette\StaticClass;
 
-	/**
-	 * Creates the main application router with defined routes.
-	 */
-	public static function createRouter(): RouteList
-	{
+    public static function createRouter(): RouteList
+    {
+        $router = new RouteList;
 
+        // 1. Hlavní stránka (už ne Admin:Home, ale jen Home)
+        $router->addRoute('', 'Home:default');
 
-		$router = new RouteList;
+        // 2. Detail příspěvku (už ne Admin:Post, ale jen Post)
+        $router->addRoute('post/<postId>', 'Post:show');
 
-		$router->addRoute('', ['presenter' => 'Admin:Home', 'action' => 'default']);
-		$router->addRoute('post/<postId>', ['presenter' => 'Admin:Post', 'action' => 'show']);
-		$router->addRoute('<presenter>/<action>', ['presenter' => 'Dashboard', 'action' => 'default']);
+        // 3. Obecné pravidlo pro ostatní věci (Sign, Dashboard atd.)
+        $router->addRoute('<presenter>/<action>[/<id>]', 'Home:default');
 
-		return $router;
-	}
+        return $router;
+    }
 }

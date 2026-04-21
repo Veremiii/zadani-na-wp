@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Admin\Presenters;
+namespace App\Presentation\Post;
 
 use App\Model\PostFacade;
 use Nette;

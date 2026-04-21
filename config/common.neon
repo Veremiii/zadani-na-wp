@@ -6,8 +6,8 @@ parameters:
 application:
     # Presenter mapping pattern
     mapping:
-        - 'App\\Presentation\\**Presenter'
-        - 'App\\Modules\\*\\Presenters\\*Presenter'
+        *: App\Presentation\*\**Presenter
+        
 
 
 database:
