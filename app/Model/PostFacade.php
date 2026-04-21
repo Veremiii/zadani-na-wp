@@ -37,4 +37,24 @@ final class PostFacade
     {
         return $this->database->table('posts')->get($postId);
     }
+
+	public function updateRating(int $userId, int $postId, int $liked): void
+	{
+    $row = $this->database->table('rating')
+        ->where('user_id', $userId)
+        ->where('post_id', $postId)
+        ->fetch();
+
+    if ($row) {
+        // Pokud už hodnocení existuje, aktualizujeme ho
+        $row->update(['liked' => $liked]);
+    } else {
+        // Pokud neexistuje, vytvoříme nový řádek
+        $this->database->table('rating')->insert([
+            'user_id' => $userId,
+            'post_id' => $postId,
+            'liked' => $liked,
+        ]);
+    }
+	}
 }

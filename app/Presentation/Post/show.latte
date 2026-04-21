@@ -3,4 +3,19 @@
 
 <h1>{$post->title}</h1>
 <div>{$post->content}</div>
+
+<div class="rating">
+    <h3>Ohodnoťte tento příspěvek:</h3>
+    
+    <a n:href="liked! $post->id, 1" class="btn btn-success">
+        👍 Líbí se mi!
+    </a>
+
+    <a n:href="liked! $post->id, 0" class="btn btn-danger">
+        👎 Nelíbí se mi!
+    </a>
+</div>
+
+{* Bonus: Zobrazení aktuálního stavu (volitelné) *}
+<p n:if="!$user->isLoggedIn()">Pro hlasování se prosím přihlaste.</p>
 {/block}

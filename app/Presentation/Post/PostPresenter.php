@@ -19,4 +19,20 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->template->post = $post;
 	}
+
+	public function handleLiked(int $postId, int $liked): void
+	{
+    	// 1. Zkontrolujeme, zda je uživatel přihlášen
+    	if (!$this->getUser()->isLoggedIn()) {
+        	$this->flashMessage('Pro hodnocení se musíš přihlásit.', 'error');
+        	$this->redirect('Sign:in');
+    	}
+
+    	// 2. Voláme metodu z Facady
+    	$this->facade->updateRating($this->getUser()->getId(), $postId, $liked);
+
+    	// 3. Informujeme uživatele a překreslíme stránku
+    	$this->flashMessage('Díky za hodnocení!');
+    	$this->redirect('this'); // Zůstane na stejné stránce
+	}
 }
