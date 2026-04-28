@@ -20,19 +20,27 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		$this->template->post = $post;
 	}
 
-	public function handleLiked(int $postId, int $liked): void
-	{
-    	// 1. Zkontrolujeme, zda je uživatel přihlášen
-    	if (!$this->getUser()->isLoggedIn()) {
-        	$this->flashMessage('Pro hodnocení se musíš přihlásit.', 'error');
-        	$this->redirect('Sign:in');
-    	}
+public function handleLiked(int $postId, int $liked): void
+{
+    if (!$this->getUser()->isLoggedIn()) {
+        $this->flashMessage('Pro hodnocení se musíš přihlásit.', 'error');
+        // AJAXem se redirect dělá blbě, tak aspoň takto:
+        if (!$this->isAjax()) {
+            $this->redirect('Sign:in');
+        }
+        return;
+    }
 
-    	// 2. Voláme metodu z Facady
-    	$this->facade->updateRating($this->getUser()->getId(), $postId, $liked);
+    $this->facade->updateRating($this->getUser()->getId(), $postId, $liked);
 
-    	// 3. Informujeme uživatele a překreslíme stránku
-    	$this->flashMessage('Díky za hodnocení!');
-    	$this->redirect('this'); // Zůstane na stejné stránce
-	}
+    if ($this->isAjax()) {
+        // Tohle řekne Nette: "Překresli jen ten snippet ratingArea"
+        $this->redrawControl('ratingArea');
+        // Pokud chceš překreslit i flash zprávy, musel bys mít snippet i na ně
+        $this->redrawControl('flashes'); 
+    } else {
+        $this->flashMessage('Díky za hodnocení!');
+        $this->redirect('this');
+    }
+}
 }

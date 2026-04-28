@@ -4,17 +4,23 @@
 <h1>{$post->title}</h1>
 <div>{$post->content}</div>
 
-<div class="rating">
-    <h3>Ohodnoťte tento příspěvek:</h3>
-    
-    <a n:href="liked! $post->id, 1" class="btn btn-success">
-        👍 Líbí se mi!
-    </a>
+{snippet ratingArea}
+    <div class="rating">
+        <h3>Ohodnoťte tento příspěvek:</h3>
+        
+        {* Přidáme třídu 'ajax' – to je klíčové pro JavaScript! *}
+        <a n:href="liked! $post->id, 1" class="ajax btn btn-success">
+            👍 Líbí se mi!
+        </a>
 
-    <a n:href="liked! $post->id, 0" class="btn btn-danger">
-        👎 Nelíbí se mi!
-    </a>
-</div>
+        <a n:href="liked! $post->id, 0" class="ajax btn btn-danger">
+            👎 Nelíbí se mi!
+        </a>
+
+        {* Jen pro kontrolu, že se to mění bez refreshu *}
+        <p>Právě je: {time()|date:'H:i:s'}</p>
+    </div>
+{/snippet}
 
 {* Bonus: Zobrazení aktuálního stavu (volitelné) *}
 <p n:if="!$user->isLoggedIn()">Pro hlasování se prosím přihlaste.</p>
